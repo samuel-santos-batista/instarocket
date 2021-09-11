@@ -1,9 +1,8 @@
 const express = require('express');
-const mongoose = require('mongoose');
+const mongooseConnection= require('./config/mongoose');
 
+mongooseConnection.createConnection().then(() => console.log('DB!!'))
 const app = express();
-
-mongoose.connect('mongodb://mongo:27017/dsplits-dev');
 
 app.use(require('./routes'))
 

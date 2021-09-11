@@ -7,6 +7,7 @@ module.exports = {
     const post = await Post.findById(request.params.id);    
     post.likes += 1;
     await post.save(); 
-    return response.status(204).json()
+    request.io.emit('like', post);
+    return response.status(200).json(post)
   }
 };

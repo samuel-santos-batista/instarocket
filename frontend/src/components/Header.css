@@ -1,7 +1,7 @@
 header#main-header {
   display: flex;
   justify-content: center;
-  background: #ffa;
+  background: #fff;
   height: 4.5rem;
   border-bottom: 1px solid #DDD;
 }

@@ -6,7 +6,7 @@ const cors = require('cors');
 mongooseConnection.createConnection().then(() => console.log('DB!!'))
 const app = express();
 
-const server =  require('http').server(app);
+const server = require('http').Server(app);
 const io = require('socket.io')(server);
 app.use((request, response, next) => {
   request.io = io;

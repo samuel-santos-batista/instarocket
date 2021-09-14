@@ -6,6 +6,8 @@ import like from '../assets/like.svg';
 import comment from '../assets/comment.svg';
 import send from '../assets/send.svg';
 
+import io from 'socket.io-client';
+
 import './Feed.css';
 
 class Feed extends Component {
@@ -14,9 +16,22 @@ class Feed extends Component {
   }
   
   async componentDidMount() {
+    this.registerToSocket()
     const response = await api.get('posts');
 
     this.setState({ feed: response.data })
+  }
+
+  registerToSocket = () => {
+    const socket = io('http://localhost:3333');
+
+    socket.on('post', newPost => {
+      this.setState({ feed: [newPost, ...this.state.feed] });
+    });
+
+    socket.on('like', likePost => {
+      this.setState({ feed: this.state.feed.map(post => post._id === likePost._id ? likePost : post) });
+    })
   }
 
   handleLike = async(id) => {

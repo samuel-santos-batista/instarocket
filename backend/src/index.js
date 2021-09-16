@@ -7,7 +7,12 @@ mongooseConnection.createConnection().then(() => console.log('DB!!'))
 const app = express();
 
 const server = require('http').Server(app);
-const io = require('socket.io')(server);
+const io = require('socket.io')(server, {
+  cors: {
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST"]
+  }
+});
 app.use((request, response, next) => {
   request.io = io;
 
